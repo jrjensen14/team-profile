@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
-
+const generatePage = require('./src/page-template');
+const fs = require('fs');
+ 
 const promptManager = () => {
   return inquirer.prompt([
     {
@@ -49,144 +51,157 @@ const promptManager = () => {
   ])
 };
 
-const promptBuildTeam = () => {
-  return inquirer.prompt([
-    {
-      type: 'list',
-      name: 'teamOptions',
-      choices:
-        [
-          'Engineer',
-          'Intern',
-          'Finish building team'
-        ]
-    }
-  ])
-  .then(teamMemberChoice => {
-    switch(teamMemberChoice.teamOptions) {
-      case "Engineer":
-        promptEngineer();
-      break;
-      case "Intern":
-        promptIntern();
-      break;
-      default:
-        promptBuildTeam()
-    }
-  });
-}
+// const promptBuildTeam = (teamData) => {
+//   // if there's no 'projects' aray property, create one
+//   if (!teamData.team) {
+//       teamData.team = [];
+//   }
 
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-const promptEngineer = () => {
-  return inquirer.prompt([
-    {
-      type: 'input',
-      name: 'engineerName',
-      message: 'Please enter an engineer name (Reqired)',
-      // validate: engineerName => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter an engineer name."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'engineerId',
-      message: 'Please enter an engineer ID (Reqired)',
-      // validate: engineerId => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter an engineer ID."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'engineerGithub',
-      message: 'Please enter an engineer GitHub username (Reqired)',
-      // validate: engineerGithub => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter an engineer GitHub username."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'engineerEmail',
-      message: 'Please enter an engineer Email (Reqired)',
-      // validate: engineerEmail => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter an engineer Email."
-      // }
-    },
-  ])
-}
+//   return inquirer.prompt([
+//     {
+//       type: 'list',
+//       name: 'teamOptions',
+//       choices:
+//         [
+//           'Engineer',
+//           'Intern',
+//           'Finish building team'
+//         ]
+//     }
+//   ])
+//   .then(teamMemberChoice => {
+//     switch(teamMemberChoice.teamOptions) {
+//       case "Engineer":
+//         promptEngineer();
+//       break;
+//       case "Intern":
+//         promptIntern();
+//       break;
+//       default:
+//         promptBuildTeam()
+//     }
+//   });
 
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-const promptIntern = () => {
-  return inquirer.prompt([
-    {
-      type: 'input',
-      name: 'internName',
-      message: 'Please enter the interns name (Reqired)',
-      // validate: internName => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter the interns name."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'internId',
-      message: 'Please enter the interns ID (Reqired)',
-      // validate: internId => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter the interns ID."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'internEmail',
-      message: 'Please enter the interns email address (Reqired)',
-      // validate: internEmail => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter the interns email address."
-      // }
-    },
-    {
-      type: 'input',
-      name: 'internSchool',
-      message: 'Please enter the school the intern attended (Reqired)',
-      // validate: internSchool => {
-      //   if (answer !== "") {
-      //     return true;
-      //   }
-      //   return "Please enter interns school."
-      // }
-    },
-  ])
-};
+// }
+
+// // WHEN I select the engineer option
+// // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
+// const promptEngineer = () => {
+//   return inquirer.prompt([
+//     {
+//       type: 'input',
+//       name: 'engineerName',
+//       message: 'Please enter an engineer name (Reqired)',
+//       // validate: engineerName => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter an engineer name."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'engineerId',
+//       message: 'Please enter an engineer ID (Reqired)',
+//       // validate: engineerId => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter an engineer ID."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'engineerGithub',
+//       message: 'Please enter an engineer GitHub username (Reqired)',
+//       // validate: engineerGithub => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter an engineer GitHub username."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'engineerEmail',
+//       message: 'Please enter an engineer Email (Reqired)',
+//       // validate: engineerEmail => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter an engineer Email."
+//       // }
+//     },
+//   ])
+// }
+
+// // WHEN I select the intern option
+// // THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+// const promptIntern = () => {
+//   return inquirer.prompt([
+//     {
+//       type: 'input',
+//       name: 'internName',
+//       message: 'Please enter the interns name (Reqired)',
+//       // validate: internName => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter the interns name."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'internId',
+//       message: 'Please enter the interns ID (Reqired)',
+//       // validate: internId => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter the interns ID."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'internEmail',
+//       message: 'Please enter the interns email address (Reqired)',
+//       // validate: internEmail => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter the interns email address."
+//       // }
+//     },
+//     {
+//       type: 'input',
+//       name: 'internSchool',
+//       message: 'Please enter the school the intern attended (Reqired)',
+//       // validate: internSchool => {
+//       //   if (answer !== "") {
+//       //     return true;
+//       //   }
+//       //   return "Please enter interns school."
+//       // }
+//     },
+//   ])
+// };
 
 
 promptManager()
   .then(answers => console.log(answers))
-  .then(promptBuildTeam)
-  .then(teamanswers => console.log(teamanswers))
-  .then(promptEngineer)
-  .then(engineerAnswers => console.log(engineerAnswers))
-  .then(promptIntern)
-  .then(internAnswers => console.log(internAnswers));
+  // .then(teamanswers => console.log(teamanswers))
+  // .then(promptEngineer)
+  // .then(engineerAnswers => console.log(engineerAnswers))
+  // .then(promptIntern)
+  // .then(internAnswers => console.log(internAnswers))
+  // .then(createTeam => {
+  //   teamData.team.push(createTeam);
+  //   if (teamData.confirmAddTeam) {
+  //     return promptBuildTeam(createTeam);
+  //   } else {
+  //     return createTeam;
+  //   }
+  // });
 
 
 
