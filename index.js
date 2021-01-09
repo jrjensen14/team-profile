@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template');
 const fs = require('fs');
+const team = [];
  
 const promptManager = () => {
   return inquirer.prompt([
