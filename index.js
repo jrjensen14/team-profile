@@ -1,8 +1,14 @@
 const inquirer = require('inquirer');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 const generatePage = require('./src/page-template');
 const fs = require('fs');
 const team = [];
  
+// WHEN I start the application
+// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+
 const promptManager = () => {
   return inquirer.prompt([
     {
@@ -51,6 +57,8 @@ const promptManager = () => {
     },
   ])
 };
+
+//Then I am prompted with a menu option to add Engineer, Intern, & finish building team
 
 // const promptBuildTeam = (teamData) => {
 //   // if there's no 'projects' aray property, create one
@@ -204,11 +212,6 @@ promptManager()
   //   }
   // });
 
-
-
-  // // WHEN I start the application
-// // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// // WHEN I enter the team manager’s name, employee ID, email address, and office number
 
 
 // // // WHEN I decide to finish building my team
