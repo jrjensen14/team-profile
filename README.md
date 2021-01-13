@@ -25,7 +25,7 @@ Your challenge is to build a Node.js command-line application that takes in info
 
   GitHub - https://github.com/jrjensen14
   
-  Email - jrjensen@gmail.com
+  Email - jrjensen14@gmail.com
 
 
 
