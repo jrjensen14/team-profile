@@ -17,6 +17,7 @@ Your challenge is to build a Node.js command-line application that takes in info
   ![alt text](dist/team-profile.png)
 
   #### Video:
+  https://drive.google.com/file/d/1L7ehI7jbKpAkBU4KPbZA4R1_en20gRS_/view
 
 
   ## Questions:
