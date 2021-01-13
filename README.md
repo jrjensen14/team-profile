@@ -14,7 +14,7 @@ Your challenge is to build a Node.js command-line application that takes in info
   npm Jest - javascript testing 
 
   ## Usage:
-  ![alt text](dist/team-profile pic .png)
+  ![alt text](dist/team-profile.png)
 
   #### Video:
 
